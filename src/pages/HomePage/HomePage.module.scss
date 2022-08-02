@@ -1,0 +1,23 @@
+.matchesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.matchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gray-medium);
+  padding: 2rem;
+  border-radius: 10%;
+}
+
+.matchWin {
+  background-color: var(--color-win);
+}
+
+.matchLoss {
+  background-color: var(--color-loss);
+}

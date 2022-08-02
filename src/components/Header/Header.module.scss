@@ -1,3 +1,5 @@
 .header {
-    background-color: green;
+    grid-area: header;
+    padding: 2rem;
+    border-bottom: 1px solid var(--color-gray-medium);
 }

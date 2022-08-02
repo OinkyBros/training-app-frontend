@@ -1,0 +1,22 @@
+.container {
+  display: grid;
+  grid-template:
+    "header" auto
+    "main" 1fr
+    "footer" auto / 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.main {
+  grid-area: main;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.content {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
