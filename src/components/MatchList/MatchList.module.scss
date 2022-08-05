@@ -11,7 +11,7 @@
   justify-content: center;
   background-color: var(--color-gray-medium);
   padding: 2rem;
-  border-radius: 10%;
+  border-radius: 15px;
   gap: 2rem;
   cursor: pointer;
 }
@@ -21,6 +21,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.oinkyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.oinky {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .matchWin {

@@ -1,8 +1,8 @@
 enum MatchMode {
-  FLEX,
-  NORMAL,
-  DUO,
-  CLASH
+  FLEX = "FLEX",
+  NORMAL = "NORMAL",
+  DUO = "DUO",
+  CLASH = "CLASH"
 }
 
 export default MatchMode;

@@ -1,6 +1,7 @@
 import Match from '../../types/Match';
 import MatchService from '../../services/Matches';
 import styles from './MatchList.module.scss';
+import Participant from '../../types/Participant';
 
 function MatchElement(match: Match) {
 	const d = new Date(match.Timestamp)
@@ -8,20 +9,41 @@ function MatchElement(match: Match) {
 	const classes = [];
 	classes.push(styles.matchContainer);
 
-	if (match.Win) {
+	if (match.Teams[0].Win) {
 		classes.push(styles.matchWin);
 	} else {
 		classes.push(styles.matchLoss);
 	}
 
+	const oinkys: React.ReactNode[] = [];
+
+	match.Teams[0].Participants.forEach((oinky) => {
+    if (!oinky.IsOinky) {
+      return;
+    }
+
+		oinkys.push(
+      <div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
+        <span>{oinky.Role}</span>
+          <img height="30px" src={oinky.ChampionIcon ?? ''} />
+        <span>{oinky.SummonerName}</span>
+      </div>
+    );
+	});
+
 	return (
-		<div className={classes.join(' ')} key={match.MatchID}>
-			<img src={match.Participants[0].ChampionIcon} />
-			<div className={styles.matchInfo}>
-				<span>{`${d.getDay()}.${d.getMonth()}.${d.getFullYear()}`}</span>
-				<span>{match.Duration}</span>
-			</div>
-		</div>
+    <a style={{ textDecoration: "none", color: "black" }} href={"/matches/" + match.MatchID} key={match.MatchID}>
+      <div className={classes.join(' ')}>
+        <div className={styles.oinkyList}>
+          {oinkys}
+        </div>
+        <div className={styles.matchInfo}>
+          <span style={{ fontWeight: "bold" }}>{match.Mode}</span>
+          <span>{`${d.getDay()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
+          <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
+        </div>
+      </div>
+    </a>
 	)
 }
 

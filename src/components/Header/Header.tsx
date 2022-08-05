@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 function Header() {
   return (
     <header className={styles.header}>
-      <span>Oinky Bros Training App</span>
+      <a className={styles.logo} href="/">Oinky Bros Training App</a>
     </header>
   )
 }
