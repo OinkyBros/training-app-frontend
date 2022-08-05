@@ -1,11 +1,12 @@
 import '../types/Match';
 import Role from '../types/Role';
 import MatchMode from '../types/MatchMode';
+import Match from '../types/Match';
 
 const matches = [
   {
     MatchID: '0',
-    Timestamp: Date.now(),
+    Timestamp: new Date(),
     Duration: '22:06',
     Win: false,
     Mode: MatchMode.FLEX,
@@ -15,7 +16,7 @@ const matches = [
         SummonerID: '12345',
         Icon: 'uri',
         Champion: 'Irelia',
-        ChampionIcon: 'uri',
+        ChampionIcon: 'http://ddragon.leagueoflegends.com/cdn/12.14.1/img/champion/Irelia.png',
         Role: Role.TOP,
         IsOinky: true,
       }
@@ -23,7 +24,7 @@ const matches = [
   },
   {
     MatchID: '1',
-    Timestamp: Date.now(),
+    Timestamp: new Date(),
     Duration: '32:06',
     Win: true,
     Mode: MatchMode.FLEX,
@@ -33,7 +34,7 @@ const matches = [
         SummonerID: '12345',
         Icon: 'uri',
         Champion: 'Malphite',
-        ChampionIcon: 'uri',
+        ChampionIcon: 'http://ddragon.leagueoflegends.com/cdn/12.14.1/img/champion/Malphite.png',
         Role: Role.TOP,
         IsOinky: true,
       }
@@ -41,7 +42,7 @@ const matches = [
   },
   {
     MatchID: '2',
-    Timestamp: Date.now(),
+    Timestamp: new Date(),
     Duration: '43:23',
     Win: true,
     Mode: MatchMode.FLEX,
@@ -51,7 +52,7 @@ const matches = [
         SummonerID: '12345',
         Icon: 'uri',
         Champion: 'Renekton',
-        ChampionIcon: 'uri',
+        ChampionIcon: 'http://ddragon.leagueoflegends.com/cdn/12.14.1/img/champion/Renekton.png',
         Role: Role.TOP,
         IsOinky: true,
       }
@@ -59,7 +60,7 @@ const matches = [
   },
   {
     MatchID: '3',
-    Timestamp: Date.now(),
+    Timestamp: new Date(),
     Duration: '34:54',
     Win: true,
     Mode: MatchMode.FLEX,
@@ -69,7 +70,7 @@ const matches = [
         SummonerID: '12345',
         Icon: 'uri',
         Champion: 'Renekton',
-        ChampionIcon: 'uri',
+        ChampionIcon: 'http://ddragon.leagueoflegends.com/cdn/12.14.1/img/champion/Renekton.png',
         Role: Role.TOP,
         IsOinky: true,
       }
@@ -77,7 +78,7 @@ const matches = [
   },
   {
     MatchID: '4',
-    Timestamp: Date.now(),
+    Timestamp: new Date(),
     Duration: '28:12',
     Win: false,
     Mode: MatchMode.FLEX,
@@ -87,7 +88,7 @@ const matches = [
         SummonerID: '12345',
         Icon: 'uri',
         Champion: 'Renekton',
-        ChampionIcon: 'uri',
+        ChampionIcon: 'http://ddragon.leagueoflegends.com/cdn/12.14.1/img/champion/Renekton.png',
         Role: Role.TOP,
         IsOinky: true,
       }

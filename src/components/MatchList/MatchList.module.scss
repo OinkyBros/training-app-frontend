@@ -6,12 +6,21 @@
 
 .matchContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: var(--color-gray-medium);
   padding: 2rem;
   border-radius: 10%;
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.matchInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .matchWin {
