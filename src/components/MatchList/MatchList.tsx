@@ -18,17 +18,31 @@ function MatchElement(match: Match) {
 	const oinkys: React.ReactNode[] = [];
 
 	match.Teams[0].Participants.forEach((oinky) => {
-    if (!oinky.IsOinky) {
-      return;
-    }
+		if (!oinky.IsOinky) {
+			return;
+		}
 
 		oinkys.push(
-      <div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
-        <span>{oinky.Role}</span>
-          <img height="30px" src={oinky.ChampionIcon ?? ''} />
-        <span>{oinky.SummonerName}</span>
-      </div>
-    );
+		<div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
+			<span>{oinky.Role}</span>
+			<img height="30px" src={oinky.ChampionIcon ?? ''} />
+			<span>{oinky.SummonerName}</span>
+		</div>
+		);
+	});
+
+	match.Teams[1].Participants.forEach((oinky) => {
+		if (!oinky.IsOinky) {
+			return;
+		}
+
+		oinkys.push(
+		<div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
+			<span>{oinky.Role}</span>
+			<img height="30px" src={oinky.ChampionIcon ?? ''} />
+			<span>{oinky.SummonerName}</span>
+		</div>
+		);
 	});
 
 	return (
@@ -39,7 +53,7 @@ function MatchElement(match: Match) {
         </div>
         <div className={styles.matchInfo}>
           <span style={{ fontWeight: "bold" }}>{match.Mode}</span>
-          <span>{`${d.getDay()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
+          <span>{`${d.getDay() + 1}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
           <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
         </div>
       </div>
