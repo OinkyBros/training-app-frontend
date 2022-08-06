@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/OinkyBros/training-app-frontend/issues"
   },
-  "homepage": "https://github.com/OinkyBros/training-app-frontend#readme",
+  "homepage": "",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
