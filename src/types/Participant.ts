@@ -8,7 +8,9 @@ class Participant {
   ChampionIcon: string | null = "";
   Role: Role = Role.NONE;
   IsOinky: boolean = false;
-
+  Assists: number = 0;
+  Kills: number = 0;
+  Deaths: number = 0;
 }
 
 export default Participant;

@@ -5,17 +5,22 @@
   gap: 2rem;
 }
 
-.oinkyList {
-  display: flex;
-  flex-direction: column;
+.scoreBoard {
+  display: grid;
+  grid-template: "team1 team2" 1fr / 1fr 1fr;
   gap: 1rem;
 }
 
-.oinky {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
+table {
+  border-collapse: collapse;
+}
+
+.scoreBoardHeading {
+  border-bottom: 1px solid black;
+}
+
+.player td > * {
+  vertical-align: middle;
 }
 
 .matchInfo {

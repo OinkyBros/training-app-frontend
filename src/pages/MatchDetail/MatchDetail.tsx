@@ -19,9 +19,6 @@ function MatchDetail() {
   
 	const d = new Date(match.Timestamp)
 
-	const classes = [];
-	classes.push(styles.matchContainer);
-
   let win = false;
 
 	match.Teams.forEach((team) => {
@@ -32,29 +29,80 @@ function MatchDetail() {
     })
 	});
 
-	if (win) {
-		classes.push(styles.matchWin);
-	} else {
-		classes.push(styles.matchLoss);
-	}
-
-	const oinkys: React.ReactNode[] = [];
+	const team1: React.ReactNode[] = [];
 
 	match.Teams[0].Participants.forEach((oinky) => {
-		oinkys.push(
-      <div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
-        <span>{oinky.Role}</span>
-			  <img height="30px" src={oinky.ChampionIcon ?? ''} />
-        <span>{oinky.SummonerName}</span>
-      </div>
+		team1.push(
+      <tr className={styles.player} key={match.MatchID + oinky.SummonerID}>
+        <td>
+          <span>{oinky.Role}</span>
+        </td>
+        <td>
+          <img height="30px" src={oinky.ChampionIcon ?? ''} />
+          <span>{oinky.SummonerName}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <span>{oinky.Kills}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <span>{oinky.Deaths}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <span>{oinky.Assists}</span>
+        </td>
+      </tr>
+    );
+	});
+
+	const team2: React.ReactNode[] = [];
+
+	match.Teams[1].Participants.forEach((oinky) => {
+		team2.push(
+      <tr className={styles.player} key={match.MatchID + oinky.SummonerID}>
+        <td valign="middle">
+          <span>{oinky.Role}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <img height="30px" src={oinky.ChampionIcon ?? ''} />
+          <span>{oinky.SummonerName}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <span>{oinky.Kills}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <span>{oinky.Deaths}</span>
+        </td>
+        <td valign="middle" className={styles.dt}>
+          <span>{oinky.Assists}</span>
+        </td>
+      </tr>
     );
 	});
 
 	return (
     <div className={styles.container}>
       <h1>{match.Mode}</h1>
-      <div className={styles.oinkyList}>
-        {oinkys}
+      <div className={styles.scoreBoard}>
+        <table>
+          <tr className={styles.scoreBoardHeading}>
+            <td>Lane</td>
+            <td>Name</td>
+            <td>K</td>
+            <td>D</td>
+            <td>A</td>
+          </tr>
+          {team1}
+        </table>
+        <table>
+          <tr className={styles.scoreBoardHeading}>
+            <td>Lane</td>
+            <td>Name</td>
+            <td>K</td>
+            <td>D</td>
+            <td>A</td>
+          </tr>
+          {team2}
+        </table>
       </div>
       <div className={styles.matchInfo}>
         <span>{`${d.getDay()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
