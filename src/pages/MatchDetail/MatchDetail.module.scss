@@ -5,21 +5,21 @@
   gap: 2rem;
 }
 
+table {
+  border-collapse: collapse;
+}
 .scoreBoard {
   display: grid;
   grid-template: "team1 team2" 1fr / 1fr 1fr;
   gap: 1rem;
 }
 
-table {
-  border-collapse: collapse;
-}
-
 .scoreBoardHeading {
   border-bottom: 1px solid black;
 }
 
-.player td > * {
+.player td {
+  padding: 0.5rem;
   vertical-align: middle;
 }
 
