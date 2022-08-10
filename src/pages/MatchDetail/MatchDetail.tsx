@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import matches from '../../services/Matches';
 import Match from '../../types/Match';
@@ -7,7 +7,11 @@ import styles from './MatchDetail.module.scss';
 function MatchDetail() {
   let matchID = useParams().matchID;
 
-  const match = matches.getMatch(matchID ?? '');
+  const [match, setMatch] = useState<Match | null>(null);
+
+  useEffect(() => {
+    matches.getMatch(matchID ?? '').then((m) => setMatch(m));
+  }, []);
 
   if (!match) {
     return <h1>Match not found!</h1>

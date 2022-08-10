@@ -2,6 +2,7 @@ import Match from '../../types/Match';
 import MatchService from '../../services/Matches';
 import styles from './MatchList.module.scss';
 import Participant from '../../types/Participant';
+import { useEffect, useState } from 'react';
 
 function MatchElement(match: Match) {
 	const d = new Date(match.Timestamp)
@@ -62,9 +63,15 @@ function MatchElement(match: Match) {
 }
 
 function MatchList() {
+	const [matches, setMatches] = useState<Match[]>([]);
+
 	const matchElements: React.ReactElement[] = [];
 
-	MatchService.getMatches().forEach(element => {
+  useEffect(() => {
+	  MatchService.getMatches().then((newMatches) => setMatches(newMatches));
+  }, []);
+
+	matches.forEach(element => {
 		matchElements.push(MatchElement(element));
 	});
 
