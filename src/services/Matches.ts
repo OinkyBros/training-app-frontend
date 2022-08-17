@@ -10,7 +10,13 @@ async function getMatches(): Promise<Match[]> {
     method: 'GET',
     mode: 'cors',
     
-  }).then((response) => response.json());
+  }).then((response) => response.json())
+    .then((data: Match[]) => {
+      data.forEach((m: any) => {
+        m.Timestamp *= 1000;
+      });
+      return data;
+    });
 
   console.log(response);
 
@@ -25,7 +31,11 @@ async function getMatch(matchID: string): Promise<Match> {
     method: 'GET',
     mode: 'cors',
     
-  }).then((response) => response.json());
+  }).then((response) => response.json())
+  .then((data) => {
+    data.Timestamp *= 1000;
+    return data;
+  });
 
   console.log(response);
 

@@ -57,7 +57,7 @@ function MatchElement(match: Match) {
         </div>
         <div className={styles.matchInfo}>
           <span style={{ fontWeight: "bold" }}>{match.Mode}</span>
-          <span>{`${date.getDay() + 1}.${date.getMonth() + 1}.${date.getFullYear()}`}</span>
+          <span>{`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`}</span>
           <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
         </div>
       </div>
