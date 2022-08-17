@@ -83,8 +83,8 @@ function MatchDetail() {
         {team2}
       </div>
       <div className={styles.matchInfo}>
-        <span>{`${d.getDay()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
-        <span>{match.Duration}</span>
+        <span>{`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
+        <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
       </div>
     </div>
 	)

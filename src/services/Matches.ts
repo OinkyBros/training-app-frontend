@@ -21,11 +21,7 @@ async function getMatches(): Promise<Match[]> {
     
   }).then((response) => response.json())
     .then((data: Match[]) => {
-      data.forEach((m: Match) => {
-        m.Timestamp *= 1000;
-        m.Teams[0].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
-        m.Teams[1].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
-      });
+      data.forEach((m: Match) => m = cleanUpApiData(m));
       return data;
     });
 
@@ -42,15 +38,19 @@ async function getMatch(matchID: string): Promise<Match> {
     
   }).then((response) => response.json())
   .then((data: Match) => {
-    data.Timestamp *= 1000;
-    data.Teams[0].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
-    data.Teams[1].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
-    return data;
+    return cleanUpApiData(data);
   });
 
   console.log(response);
 
   return response ?? [];
+}
+
+function cleanUpApiData(match: Match): Match {
+  match.Timestamp *= 1000;
+  match.Teams[0].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
+  match.Teams[1].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
+  return match;
 }
 
 export default {
