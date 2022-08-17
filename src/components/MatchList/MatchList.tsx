@@ -5,38 +5,38 @@ import Participant from '../../types/Participant';
 import { useEffect, useState } from 'react';
 
 function MatchElement(match: Match) {
-	const d = new Date(match.Timestamp)
+	const date = new Date(match.Timestamp);
 
 	const classes = [];
 	classes.push(styles.matchContainer);
 
-	if (match.Teams[0].Win) {
-		classes.push(styles.matchWin);
-	} else {
-		classes.push(styles.matchLoss);
-	}
-
 	const oinkys: React.ReactNode[] = [];
+
+	let win = false;
 
 	match.Teams[0].Participants.forEach((oinky) => {
 		if (!oinky.IsOinky) {
 			return;
 		}
 
+		win = match.Teams[0].Win;
+		
 		oinkys.push(
-		<div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
+			<div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
 			<span>{oinky.Role}</span>
 			<img height="30px" src={oinky.ChampionIcon ?? ''} />
 			<span>{oinky.SummonerName}</span>
 		</div>
 		);
 	});
-
+	
 	match.Teams[1].Participants.forEach((oinky) => {
 		if (!oinky.IsOinky) {
 			return;
 		}
 
+		win = match.Teams[1].Win;
+
 		oinkys.push(
 		<div className={styles.oinky} key={match.MatchID + oinky.SummonerID}>
 			<span>{oinky.Role}</span>
@@ -45,6 +45,9 @@ function MatchElement(match: Match) {
 		</div>
 		);
 	});
+	
+
+	classes.push(win ? styles.matchWin : styles.matchLoss);
 
 	return (
     <a style={{ textDecoration: "none", color: "black" }} href={"/matches/" + match.MatchID} key={match.MatchID}>
@@ -54,7 +57,7 @@ function MatchElement(match: Match) {
         </div>
         <div className={styles.matchInfo}>
           <span style={{ fontWeight: "bold" }}>{match.Mode}</span>
-          <span>{`${d.getDay() + 1}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
+          <span>{`${date.getDay() + 1}.${date.getMonth() + 1}.${date.getFullYear()}`}</span>
           <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
         </div>
       </div>
