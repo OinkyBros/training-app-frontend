@@ -37,8 +37,10 @@
 
 .matchWin {
   background-color: var(--color-win);
+  color: var(--color-main);
 }
 
 .matchLoss {
   background-color: var(--color-loss);
+  color: var(--color-main);
 }

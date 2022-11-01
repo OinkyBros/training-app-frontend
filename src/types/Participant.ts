@@ -11,6 +11,8 @@ class Participant {
   Assists: number = 0;
   Kills: number = 0;
   Deaths: number = 0;
+  VisionScore: number = 0;
+  CS: number = 0;
 }
 
 export default Participant;
