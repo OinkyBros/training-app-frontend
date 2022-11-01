@@ -89,12 +89,12 @@ function getRoleCSFactor(role: Role) {
   switch(role) {
     case Role.MID:
     case Role.BOT:
+      case Role.TOP:
       return 1;
-    case Role.TOP:
     case Role.JUNGLE:
       return 0.8;
     case Role.SUPP:
-      return 0.5;
+      return 0.2;
     default:
       return 0;
   }
@@ -132,7 +132,7 @@ function OinkyTrainingBoard(oinkys: Participant[], matchDuration: number) {
           <span>{oinky.CS}</span>
         </td>
         <td className={styles.dt}>
-          <span>{Math.round(oinky.CS / 10 * getRoleCSFactor(oinky.Role) / (matchDuration / 60) * 100)}%</span>
+          <span>{Math.round(oinky.CS / 10 / (matchDuration / 60) / getRoleCSFactor(oinky.Role) * 100)}%</span>
         </td>
       </tr>
     );
