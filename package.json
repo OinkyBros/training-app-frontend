@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.8",
     "@types/sass": "^1.43.1",
     "@vitejs/plugin-react": "^2.0.0",
     "sass": "^1.54.0",

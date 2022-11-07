@@ -1,0 +1,58 @@
+.playerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;   
+}
+
+progress {
+    border-radius: 10px;
+
+    --status-color: red;
+
+    &.success {
+        --status-color: green;
+    }
+
+    &.ok {
+        --status-color: yellow;
+    }
+
+    color: var(--status-color);
+    &::-moz-progress-bar  {
+        border-radius: 10px;
+        background: var(--status-color);
+    }
+    
+    &::-webkit-progress-value {
+        background: var(--status-color);
+        border-radius: 10px;
+    }
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    width: 300px;
+    height: 500px;
+    border-radius: 25px;
+    transition: font-size 240ms, height 250ms, width 250ms, margin 250ms, box-shadow 250ms;
+
+    cursor: pointer;
+    margin: 25px;
+
+    &:hover {
+        font-size: 1.5rem;
+        box-shadow: 10px 10px 10px 10px black;
+        height: 550px;
+        width: 350px;
+        margin: 0px;
+    }
+}
