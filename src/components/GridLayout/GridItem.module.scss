@@ -1,0 +1,107 @@
+@import '../../assets/variables';
+
+.gridItem {
+  width: 100%;
+
+  margin: 1rem;
+
+  --gap-size: 2rem;
+}
+
+@mixin size0 {
+  width: 0%;
+  display: none;
+}
+
+@mixin col1 { width: calc(100% / 12 - var(--gap-size)); }
+@mixin col2 { width: calc(100% / 12 * 2 - var(--gap-size)); }
+@mixin col3 { width: calc(100% / 12 * 3 - var(--gap-size)); }
+@mixin col4 { width: calc(100% / 12 * 4 - var(--gap-size)); }
+@mixin col5 { width: calc(100% / 12 * 5 - var(--gap-size)); }
+@mixin col6 { width: calc(100% / 12 * 6 - var(--gap-size)); }
+@mixin col7 { width: calc(100% / 12 * 7 - var(--gap-size)); }
+@mixin col8 { width: calc(100% / 12 * 8 - var(--gap-size)); }
+@mixin col9 { width: calc(100% / 12 * 9 - var(--gap-size)); }
+@mixin col10 { width: calc(100% / 12 * 10 - var(--gap-size)); }
+@mixin col11 { width: calc(100% / 12 * 11 - var(--gap-size)); }
+@mixin col12 { width: 100%; }
+
+@media screen and (min-width: $breakpoint_xs) {
+  .size0 { @include size0; }
+  .xs1 { @include col1; }
+  .xs2 { @include col2; }
+  .xs3 { @include col3; }
+  .xs4 { @include col4; }
+  .xs5 { @include col5; }
+  .xs6 { @include col6; }
+  .xs7 { @include col7; }
+  .xs8 { @include col8; }
+  .xs9 { @include col9; }
+  .xs10 { @include col10; }
+  .xs11 { @include col11; }
+  .xs12 { @include col12; }
+}
+
+@media screen and (min-width: $breakpoint_sm) {
+  .size0 { @include size0; }
+  .sm1 { @include col1; }
+  .sm2 { @include col2; }
+  .sm3 { @include col3; }
+  .sm4 { @include col4; }
+  .sm5 { @include col5; }
+  .sm6 { @include col6; }
+  .sm7 { @include col7; }
+  .sm8 { @include col8; }
+  .sm9 { @include col9; }
+  .sm10 { @include col10; }
+  .sm11 { @include col11; }
+  .sm12 { @include col12; }
+}
+
+@media screen and (min-width: $breakpoint_md) {
+  .size0 { @include size0; }
+  .md1 { @include col1; }
+  .md2 { @include col2; }
+  .md3 { @include col3; }
+  .md4 { @include col4; }
+  .md5 { @include col5; }
+  .md6 { @include col6; }
+  .md7 { @include col7; }
+  .md8 { @include col8; }
+  .md9 { @include col9; }
+  .md10 { @include col10; }
+  .md11 { @include col11; }
+  .md12 { @include col12; }
+}
+
+@media screen and (min-width: $breakpoint_lg) {
+  .size0 { @include size0; }
+  .lg1 { @include col1; }
+  .lg2 { @include col2; }
+  .lg3 { @include col3; }
+  .lg4 { @include col4; }
+  .lg5 { @include col5; }
+  .lg6 { @include col6; }
+  .lg7 { @include col7; }
+  .lg8 { @include col8; }
+  .lg9 { @include col9; }
+  .lg10 { @include col10; }
+  .lg11 { @include col11; }
+  .lg12 { @include col12; }
+}
+
+@media screen and (min-width: $breakpoint_lg) {
+  .size0 { @include size0; }
+  .lg1 { @include col1; }
+  .lg2 { @include col2; }
+  .lg3 { @include col3; }
+  .lg4 { @include col4; }
+  .lg5 { @include col5; }
+  .lg6 { @include col6; }
+  .lg7 { @include col7; }
+  .lg8 { @include col8; }
+  .lg9 { @include col9; }
+  .lg10 { @include col10; }
+  .lg11 { @include col11; }
+  .lg12 { @include col12; }
+}
