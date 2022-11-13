@@ -5,6 +5,7 @@ import BaseLayout from './components/BaseLayout/BaseLayout';
 import './assets/index.scss';
 import MatchDetail from "./pages/MatchDetail/MatchDetail";
 import ScoreOverview from "./components/Lan/ScoreOverview/ScoreOverview";
+import Imprint from "./pages/Imprint/Imprint";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ScoreOverview />} />
+          <Route path="/imprint" element={<Imprint />} />
           <Route path="/matches/:matchID" element={<MatchDetail />} />
         </Routes>
       </BrowserRouter>

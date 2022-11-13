@@ -1,5 +1,17 @@
 .footer {
-  background-color: var(--color-dark);
+  border-top: 1px solid var(--color-light);
+  background-color: var(--color-main);
   grid-area: footer;
   padding: 2rem;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 250ms ease;
+
+    &:hover, &:active {
+      color: var(--color-dark);
+    }
+  }
 }

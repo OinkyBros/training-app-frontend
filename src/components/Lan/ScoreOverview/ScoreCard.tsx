@@ -11,10 +11,10 @@ interface ScoreCardProps {
 function ScoreCard({ title, p1, p2, p3 }: ScoreCardProps) {
     return (
         <div className={styles.card}>
-            <h1>{title}</h1>
             <h3>{p1}</h3>
             <h4>{p2}</h4>
             <h5>{p3}</h5>
+            <h1>{title}</h1>
         </div>
     )    
 }
