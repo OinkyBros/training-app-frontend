@@ -90,18 +90,18 @@
   .lg12 { @include col12; }
 }
 
-@media screen and (min-width: $breakpoint_lg) {
+@media screen and (min-width: $breakpoint_xl) {
   .size0 { @include size0; }
-  .lg1 { @include col1; }
-  .lg2 { @include col2; }
-  .lg3 { @include col3; }
-  .lg4 { @include col4; }
-  .lg5 { @include col5; }
-  .lg6 { @include col6; }
-  .lg7 { @include col7; }
-  .lg8 { @include col8; }
-  .lg9 { @include col9; }
-  .lg10 { @include col10; }
-  .lg11 { @include col11; }
-  .lg12 { @include col12; }
+  .xl1 { @include col1; }
+  .xl2 { @include col2; }
+  .xl3 { @include col3; }
+  .xl4 { @include col4; }
+  .xl5 { @include col5; }
+  .xl6 { @include col6; }
+  .xl7 { @include col7; }
+  .xl8 { @include col8; }
+  .xl9 { @include col9; }
+  .xl10 { @include col10; }
+  .xl11 { @include col11; }
+  .xl12 { @include col12; }
 }
