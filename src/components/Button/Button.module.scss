@@ -1,0 +1,13 @@
+.button {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    transition: padding 100ms ease-in-out;
+    padding: 0.75rem 1.25rem;
+  }
+}

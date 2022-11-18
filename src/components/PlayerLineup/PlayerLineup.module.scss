@@ -9,8 +9,8 @@
 
 progress {
     border-radius: 10px;
-
     --status-color: red;
+    margin: 0.2rem 0 1rem 0;
 
     &.success {
         --status-color: green;
@@ -37,11 +37,10 @@ progress {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding: 2rem;
 
     background-color: var(--color-dark);
     color: var(--color-light);
-    width: 300px;
-    height: 500px;
     border-radius: 25px;
     transition: font-size 240ms, height 250ms, width 250ms, margin 250ms, box-shadow 250ms;
 
@@ -51,8 +50,6 @@ progress {
     &:hover {
         font-size: 1.5rem;
         box-shadow: 10px 10px 10px 10px black;
-        height: 550px;
-        width: 350px;
         margin: 0px;
     }
 }

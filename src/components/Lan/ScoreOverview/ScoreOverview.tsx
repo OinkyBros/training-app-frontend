@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import GoalService from '../../../services/Goals';
 import MatchService from '../../../services/Matches';
 import Match from '../../../types/Match';
 import Grid from '../../GridLayout/Grid';
@@ -20,6 +21,13 @@ type PlayerScore = {
 }
 
 function ScoreOverview() {
+  GoalService.getGoals().then((goalOverview) => {
+    console.log(`goalOverview: ${JSON.stringify(goalOverview)}`);
+  }).catch((e: any) => {
+    console.log(e);
+  });
+
+
   const [loading, setLoading] = useState<boolean>(true);
 	const [matches, setMatches] = useState<Match[]>([]);
 
@@ -80,8 +88,6 @@ function ScoreOverview() {
       {children}
     </GridItem>
   );
-
-  console.table(playerScores);
   
   const killCard = () => {
     const ks = [...playerScores.values()].sort((a, b) => b.totalKills - a.totalKills);
