@@ -5,9 +5,9 @@ interface GridProps
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 }
 
-function Grid({ children, ...props }: GridProps) {
+function Grid({ children, className, ...props }: GridProps) {
   return (
-    <div className={styles.grid} {...props}>
+    <div className={`${styles.grid} ${className}`} {...props}>
       {children}
     </div>
   )

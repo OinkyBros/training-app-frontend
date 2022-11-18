@@ -91,7 +91,7 @@ const xlMap = new Map<GridItemColSize, string>([
   [12, styles.xl12],
 ]);
 
-function GridItem({ children, xs, sm, md, lg, xl, ...props}: GridItemProps) {
+function GridItem({ children, xs, sm, md, lg, xl, className, ...props}: GridItemProps) {
   const xsStyle = xsMap.get(xs ?? 12);
   const smStyle = smMap.get(sm ?? xs ?? 12);
   const mdStyle = mdMap.get(md ?? sm ?? xs ?? 12);
@@ -99,7 +99,7 @@ function GridItem({ children, xs, sm, md, lg, xl, ...props}: GridItemProps) {
   const xlStyle = xlMap.get(xl ?? lg ?? md ?? sm ?? xs ?? 12);
 
   return (
-    <div className={`${styles.gridItem} ${xsStyle} ${smStyle} ${mdStyle} ${lgStyle} ${xlStyle}`} {...props}>
+    <div className={`${styles.gridItem} ${xsStyle} ${smStyle} ${mdStyle} ${lgStyle} ${xlStyle} ${className}`} {...props}>
       {children}
     </div>
   )

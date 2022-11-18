@@ -24,9 +24,9 @@
 @mixin col9 { width: calc(100% / 12 * 9 - var(--gap-size)); }
 @mixin col10 { width: calc(100% / 12 * 10 - var(--gap-size)); }
 @mixin col11 { width: calc(100% / 12 * 11 - var(--gap-size)); }
-@mixin col12 { width: 100%; }
+@mixin col12 { width: 100%; margin: 1rem 0px; }
 
-@media screen and (min-width: $breakpoint_xs) {
+@media screen and (min-width: $breakpoint_xs) and (max-width: $breakpoint_sm) {
   .size0 { @include size0; }
   .xs1 { @include col1; }
   .xs2 { @include col2; }
@@ -42,7 +42,7 @@
   .xs12 { @include col12; }
 }
 
-@media screen and (min-width: $breakpoint_sm) {
+@media screen and (min-width: $breakpoint_sm) and (max-width: $breakpoint_md) {
   .size0 { @include size0; }
   .sm1 { @include col1; }
   .sm2 { @include col2; }
@@ -58,7 +58,7 @@
   .sm12 { @include col12; }
 }
 
-@media screen and (min-width: $breakpoint_md) {
+@media screen and (min-width: $breakpoint_md) and (max-width: $breakpoint_lg) {
   .size0 { @include size0; }
   .md1 { @include col1; }
   .md2 { @include col2; }
@@ -74,7 +74,7 @@
   .md12 { @include col12; }
 }
 
-@media screen and (min-width: $breakpoint_lg) {
+@media screen and (min-width: $breakpoint_lg) and (max-width: $breakpoint_xl) {
   .size0 { @include size0; }
   .lg1 { @include col1; }
   .lg2 { @include col2; }

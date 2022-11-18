@@ -6,43 +6,15 @@ import Role from '../../types/Role';
 import Goal, { GoalOverview, GoalResult } from '../../types/Goal';
 import GoalService from '../../services/Goals';
 import Match from '../../types/Match';
+import Grid from '../GridLayout/Grid';
+import GridItem from '../GridLayout/GridItem';
+import Button from '../Button/Button';
+import { Link } from 'react-router-dom';
 
 function PlayerLineup() {
-  function getRoleVisionScoreFactor(role: Role) {
-    switch(role) {
-      case Role.MID:
-      case Role.BOT:
-        case Role.TOP:
-        return 1;
-      case Role.JUNGLE:
-        return 1.5;
-      case Role.SUPP:
-        return 2;
-      default:
-        return 0;
-    }
-  }  
-
-  function getRoleCSFactor(role: Role) {
-    switch(role) {
-      case Role.MID:
-      case Role.BOT:
-        case Role.TOP:
-        return 1;
-      case Role.JUNGLE:
-        return 0.8;
-      case Role.SUPP:
-        return 0.2;
-      default:
-        return 0;
-    }
-  }
-
   const [match, setMatch] = useState<Match | null>(null);
   const [results, setResults] = useState<GoalResult[]>([]);
   const [players, setPlayers] = useState<Participant[]>([]);
-
-	const matchElements: React.ReactElement[] = [];
 
   useEffect(() => {
     if (!match || !match.MatchID) {
@@ -98,17 +70,20 @@ function PlayerLineup() {
 
   const playerComponent = (player: Participant) => {
     return (
-      <div className={styles.player} key={player.SummonerID}>
+      <GridItem xs={12} sm={6} md={4} lg={3} xl={2} className={styles.player} key={player.SummonerID}>
         <h1>{player.SummonerName}</h1>
         {results.map((result: GoalResult) => goalComponent(result, player))}
-      </div>
+      </GridItem>
     )
   };
 
   return (
-    <div className={styles.playerContainer} >
+    <Grid className={styles.playerContainer} >
       {players.map((p) => playerComponent(p))}
-    </div>
+      <GridItem className={styles.detailLink} xs={12} sm={6} md={4} lg={3} xl={2}>
+        <Link to={`/matches/${match?.MatchID}`}><Button>Match details</Button></Link>
+      </GridItem>
+    </Grid>
   )
 };
 
