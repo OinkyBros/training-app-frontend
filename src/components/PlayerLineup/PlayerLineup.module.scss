@@ -4,27 +4,28 @@
 }
 
 progress {
-    border-radius: 10px;
     --status-color: red;
     margin: 0.2rem 0 1rem 0;
-
+    border-width: 1px;
+    background-color: var(--color-main);
+    border-color: var(--color-light);
+    
     &.success {
-        --status-color: green;
+      --status-color: green;
     }
-
+    
     &.ok {
-        --status-color: yellow;
+      --status-color: yellow;
     }
-
+    
     color: var(--status-color);
+    
     &::-moz-progress-bar  {
-        border-radius: 10px;
-        background: var(--status-color);
+      background: var(--status-color);
     }
     
     &::-webkit-progress-value {
-        background: var(--status-color);
-        border-radius: 10px;
+      background: var(--status-color);
     }
 }
 
@@ -36,7 +37,6 @@ progress {
 
     background-color: var(--color-dark);
     color: var(--color-light);
-    border-radius: 3px;
     transition: font-size 240ms, height 250ms, width 250ms, margin 250ms, box-shadow 250ms;
 
     cursor: pointer;
