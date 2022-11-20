@@ -14,7 +14,7 @@ const actionOrder = {
 
 class MatchService {
   public static async getMatches(): Promise<Match[]> {
-    const url: string = "https://api.oinky.vhoeher.de/api/v1/matches";
+    const url: string = `${import.meta.env.VITE_API_URL}/v${import.meta.env.VITE_API_VERSION}/matches`;
   
     const response = await fetch(url, {
       method: 'GET',
@@ -31,7 +31,7 @@ class MatchService {
   
   
   public static async getMatch(matchID: string): Promise<Match> {
-    const url: string = `https://api.oinky.vhoeher.de/api/v1/matches/${matchID}`;
+    const url: string = `${import.meta.env.VITE_API_URL}/v${import.meta.env.VITE_API_VERSION}/matches/${matchID}`;
   
     const response = await fetch(url, {
       method: 'GET',

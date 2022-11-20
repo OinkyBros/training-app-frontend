@@ -21,13 +21,6 @@ type PlayerScore = {
 }
 
 function ScoreOverview() {
-  GoalService.getGoals().then((goalOverview) => {
-    console.log(`goalOverview: ${JSON.stringify(goalOverview)}`);
-  }).catch((e: any) => {
-    console.log(e);
-  });
-
-
   const [loading, setLoading] = useState<boolean>(true);
 	const [matches, setMatches] = useState<Match[]>([]);
 
