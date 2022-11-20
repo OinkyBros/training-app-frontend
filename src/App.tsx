@@ -12,10 +12,8 @@ function App() {
     <BaseLayout>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/lan" element={<ScoreOverview />} />
+          <Route path="/" element={<ScoreOverview />} />
           <Route path="/imprint" element={<Imprint />} />
-          <Route path="/matches/:matchID" element={<MatchDetail />} />
         </Routes>
       </BrowserRouter>
     </BaseLayout>
