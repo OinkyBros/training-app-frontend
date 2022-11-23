@@ -10,11 +10,28 @@ import Grid from '../GridLayout/Grid';
 import GridItem from '../GridLayout/GridItem';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
+import IconService from '../../services/Icons';
 
 function PlayerLineup() {
   const [match, setMatch] = useState<Match | null>(null);
   const [results, setResults] = useState<GoalResult[]>([]);
   const [players, setPlayers] = useState<Participant[]>([]);
+  const [playerIcons, setPlayerIcons] = useState<Map<number, Blob>>(new Map()); 
+
+  useEffect(() => {
+    players.forEach((p) => {
+      if (p.Icon) {
+        IconService.getPlayerIcon(Number.parseInt(p.Icon))
+          .then((blob) => {
+            if (!blob) {
+              return;
+            }
+
+            setPlayerIcons((oldIcons) => oldIcons.set(Number.parseInt(p.Icon!), blob));
+          });
+      }
+    });
+  }, [players]);
 
   useEffect(() => {
     if (!match || !match.MatchID) {
@@ -69,9 +86,12 @@ function PlayerLineup() {
   }
 
   const playerComponent = (player: Participant) => {
+    const icon = Number.parseFloat(player.Icon!);
+    const iconBlob = playerIcons.get(icon);
     return (
       <GridItem xs={12} sm={6} md={4} lg={3} xl={2} className={styles.player} key={player.SummonerID}>
-        <h1>{player.SummonerName}</h1>
+        <h1>{iconBlob ? <img src={URL.createObjectURL(iconBlob)} style={{width: "1em", height: "1em"}}/> : null}{player.SummonerName}</h1>
+        
         {results.map((result: GoalResult) => goalComponent(result, player))}
       </GridItem>
     )
