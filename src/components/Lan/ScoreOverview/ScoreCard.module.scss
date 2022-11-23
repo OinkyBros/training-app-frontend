@@ -21,6 +21,11 @@
     padding: 0px;
     margin: 0px;
   }
+
+  img {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 @media screen and (max-width: $breakpoint_sm) {

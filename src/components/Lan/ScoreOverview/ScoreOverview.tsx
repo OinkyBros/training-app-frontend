@@ -2,13 +2,14 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import GoalService from '../../../services/Goals';
 import MatchService from '../../../services/Matches';
 import Match from '../../../types/Match';
+import Participant from '../../../types/Participant';
 import Grid from '../../GridLayout/Grid';
 import GridItem from '../../GridLayout/GridItem';
 import ScoreCard from './ScoreCard';
 import styles from './ScoreOverview.module.scss';
 
 type PlayerScore = {
-  summonerName: string,
+  summoner: Participant,
   totalCS: number,
   averageCS: number,
   totalKills: number,
@@ -47,7 +48,7 @@ function ScoreOverview() {
 
   players.forEach((p) => {
     const summ = playerScores.get(p.SummonerName) ?? {
-      summonerName: p.SummonerName,
+      summoner: p,
       totalKills: 0,
       averageKills: 0,
       totalAssists: 0,
@@ -88,11 +89,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Total Kills"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.totalKills ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.totalKills ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.totalKills ?? 0}
       />
     );
@@ -104,11 +105,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Total Assists"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.totalAssists ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.totalAssists ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.totalAssists ?? 0}
       />
     );
@@ -120,11 +121,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Total Deaths"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.totalDeaths ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.totalDeaths ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.totalDeaths ?? 0}
       />
     );
@@ -136,11 +137,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Total CS"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.totalCS ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.totalCS ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.totalCS ?? 0}
       />
     );
@@ -152,11 +153,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Kills/Game"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.averageKills ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.averageKills ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.averageKills ?? 0}
       />
     );
@@ -168,11 +169,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Assists/Game"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.averageAssists ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.averageAssists ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.averageAssists ?? 0}
       />
     );
@@ -184,11 +185,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="Deaths/Game"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.averageDeaths ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.averageDeaths ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.averageDeaths ?? 0}
       />
     );
@@ -200,11 +201,11 @@ function ScoreOverview() {
     return (
       <ScoreCard
         title="CS/Game"
-        p1={ks.at(0)?.summonerName ?? ''}
+        p1={ks.at(0)?.summoner}
         p1Value={ks.at(0)?.averageCS ?? 0}
-        p2={ks.at(1)?.summonerName ?? ''}
+        p2={ks.at(1)?.summoner}
         p2Value={ks.at(1)?.averageCS ?? 0}
-        p3={ks.at(2)?.summonerName ?? ''}
+        p3={ks.at(2)?.summoner}
         p3Value={ks.at(2)?.averageCS ?? 0}
       />
     );
