@@ -68,7 +68,7 @@ function PlayerLineup() {
   }, []);
 
   const goalComponent = (goalResult: GoalResult, player: Participant) => {
-    const partGoalRes = goalResult.participants.find((p) => player.SummonerName === p.summonerName)
+    const partGoalRes = goalResult?.participants?.find((p) => player.SummonerName === p.summonerName)
 
     if (!partGoalRes) {
       return '';
@@ -101,6 +101,9 @@ function PlayerLineup() {
       {players.map((p) => playerComponent(p))}
       <GridItem className={styles.detailLink} xs={12} sm={6} md={4} lg={3} xl={2}>
         <Link to={`/matches/${match?.MatchID}`}><Button>Match details</Button></Link>
+      </GridItem>
+      <GridItem className={styles.detailLink} xs={12} sm={6} md={4} lg={3} xl={2}>
+        <Link to={'/add-goal'}><Button>Add goal</Button></Link>
       </GridItem>
     </Grid>
   )

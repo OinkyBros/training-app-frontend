@@ -5,6 +5,7 @@ import BaseLayout from './components/BaseLayout/BaseLayout';
 import './assets/index.scss';
 import MatchDetail from "./pages/MatchDetail/MatchDetail";
 import Imprint from "./pages/Imprint/Imprint";
+import AddGoal from "./pages/AddGoal/AddGoal";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/imprint" element={<Imprint />} />
+          <Route path="/add-goal" element={<AddGoal />} />
           <Route path="/matches/:matchID" element={<MatchDetail />} />
         </Routes>
       </BrowserRouter>
