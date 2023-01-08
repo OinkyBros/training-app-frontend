@@ -15,7 +15,7 @@ function MatchList() {
     }, []);
 
 	matches.forEach((match: Match) => {
-		matchElements.push(<PlayerLineup match={match} />);
+		matchElements.push(<PlayerLineup match={match} key={match.MatchID}/>);
 	});
 
 	return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AddGoal from '../../components/AddGoal/AddGoal';
-import GoalService from '../../services/Goals';
+import GoalService from '../../services/GoalsService';
 import Goal, { GoalOverview } from '../../types/Goal';
 import styles from './Goals.module.scss';
 
@@ -17,6 +17,7 @@ function Goals() {
             .then((go: GoalOverview) => {
                 setDefaultGoals(go.defaultGoals);
                 setCustomGoals(go.customGoals);
+                setDialogOpen(false);
             });
     };
 
@@ -62,7 +63,7 @@ function Goals() {
 
     const goalComponent = (goal: Goal) => {
         return (
-            <tr>
+            <tr key={goal.goalID}>
                 <td>
                     <span>{goal.displayName}</span>
                 </td>
@@ -80,15 +81,19 @@ function Goals() {
         <div className={styles.container}>
             <h1>Default goals</h1>
             <table>
-                {defaultGoals.map(goalComponent)}
+                <tbody>
+                    {defaultGoals.map(goalComponent)}
+                </tbody>
             </table>
             <h1>Custom goals</h1>
             <table>
-                {customGoals.map(goalComponent)}
+                <tbody>
+                    {customGoals.map(goalComponent)}
+                </tbody>
             </table>
             <button onClick={addGoal}>Add Goal</button>
             <dialog onClose={dialogClosed} onAbort={dialogClosed} ref={dialogRef}>
-                <AddGoal editGoalId={existingGoal?.goalID ?? null} onGoalAdded={refreshGoals}/>
+                <AddGoal onCancel={dialogClosed} editGoalId={existingGoal?.goalID ?? null} onGoalAdded={refreshGoals}/>
             </dialog>
         </div>
     );

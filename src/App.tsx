@@ -6,7 +6,7 @@ import './assets/index.scss';
 import MatchDetail from "./pages/MatchDetail/MatchDetail";
 import Imprint from "./pages/Imprint/Imprint";
 import AddGoal from "./components/AddGoal/AddGoal";
-import Goals from "./pages/Goals/Goals";
+import Goals from "./pages/Goals/GoalsPage";
 import MatchList from "./components/MatchList/MatchList";
 
 function App() {

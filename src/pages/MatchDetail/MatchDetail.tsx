@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import GoalService from '../../services/Goals';
+import GoalService from '../../services/GoalsService';
 import matches from '../../services/Matches';
 import Goal, { GoalResult } from '../../types/Goal';
 import Match from '../../types/Match';
@@ -62,72 +62,48 @@ function TeamScoreBoard(team: Team, matchID: string) {
   });
 
   return (
-    <table>
-      <tr className={styles.scoreBoardHeading}>
-        <td>Lane</td>
-        <td>Champion</td>
-        <td>Name</td>
-        <td>K</td>
-        <td>D</td>
-        <td>A</td>
-      </tr>
-      {teamElements}
+    <table key={matchID + team.TeamID}>
+        <thead>
+            <tr className={styles.scoreBoardHeading}>
+                <td>Lane</td>
+                <td>Champion</td>
+                <td>Name</td>
+                <td>K</td>
+                <td>D</td>
+                <td>A</td>
+            </tr>
+        </thead>
+        <tbody>
+            {teamElements}
+        </tbody>
     </table>
   )
 }
 
-function getRoleVisionScoreFactor(role: Role) {
-  switch(role) {
-    case Role.MID:
-    case Role.BOT:
-      case Role.TOP:
-      return 1;
-    case Role.JUNGLE:
-      return 1.5;
-    case Role.SUPP:
-      return 2;
-    default:
-      return 0;
-  }
-}
-
-function getRoleCSFactor(role: Role) {
-  switch(role) {
-    case Role.MID:
-    case Role.BOT:
-      case Role.TOP:
-      return 1;
-    case Role.JUNGLE:
-      return 0.8;
-    case Role.SUPP:
-      return 0.2;
-    default:
-      return 0;
-  }
-}
-
 function OinkyTrainingBoard(oinkys: Participant[], goals: Goal[], results: GoalResult[], matchDuration: number) {
     const goalElement = (goal: Goal) => (
-        <div className={styles.goalContainer}>
+        <div className={styles.goalContainer} key={goal.goalID}>
             <h3>{goal.displayName}</h3>
             <table>
-            {
-                results
-                .filter((r) => r.goalID === goal.goalID)
-                .flatMap((r) => r.participants)
-                .filter((pr) => pr.isOinky)
-                .sort((a, b) => roleOrder[a.role] - roleOrder[b.role])
-                .map((pr) => (
-                    <tr>
-                        <td>
-                            {pr.summonerName}
-                        </td>
-                        <td className={styles.goalResult}>
-                            <progress id={goal.goalID} className={pr.goalResult >= 0.85 ? styles.success : pr.goalResult >= 0.5 ? styles.ok : ''} value={pr.goalResult}></progress>
-                        </td>
-                    </tr>
-                ))
-            }
+                <tbody>
+                {
+                    results
+                    .filter((r) => r.goalID === goal.goalID)
+                    .flatMap((r) => r.participants)
+                    .filter((pr) => pr.isOinky)
+                    .sort((a, b) => roleOrder[a.role] - roleOrder[b.role])
+                    .map((pr) => (
+                        <tr key={goal.goalID + pr.summonerName}>
+                            <td>
+                                {pr.summonerName}
+                            </td>
+                            <td className={styles.goalResult}>
+                                <progress id={goal.goalID} className={pr.goalResult >= 0.85 ? styles.success : pr.goalResult >= 0.5 ? styles.ok : ''} value={pr.goalResult}></progress>
+                            </td>
+                        </tr>
+                    ))
+                }
+                </tbody>
             </table>
         </div>
     );
@@ -181,8 +157,8 @@ function MatchDetail() {
         <div className={styles.container}>
             <h1>{match.Mode}</h1>
             <div className={styles.scoreBoard}>
-            {team1}
-            {team2}
+                {team1}
+                {team2}
             </div>
             <div className={styles.matchInfo}>
                 <span>{`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>

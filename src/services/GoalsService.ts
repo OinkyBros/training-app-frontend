@@ -70,7 +70,7 @@ class GoalService {
   }
 
   public static async updateGoal(goal: Goal) {
-    const url: string = 'https://api.oinky.vhoeher.de/api/v1/goals';
+    const url: string = `https://api.oinky.vhoeher.de/api/v1/goals/${goal.goalID}`;
 
     const response = await fetch(url, {
       method: 'PUT',
