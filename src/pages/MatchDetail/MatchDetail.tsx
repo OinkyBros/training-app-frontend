@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import GoalService from '../../services/Goals';
 import matches from '../../services/Matches';
+import Goal, { GoalResult } from '../../types/Goal';
 import Match from '../../types/Match';
 import Participant from '../../types/Participant';
-import Role from '../../types/Role';
+import Role, { roleOrder } from '../../types/Role';
 import Team from '../../types/Team';
 import styles from './MatchDetail.module.scss';
 
@@ -40,6 +42,9 @@ function TeamScoreBoard(team: Team, matchID: string) {
           <span>{oinky.Role}</span>
         </td>
         <td>
+          <span>{oinky.Champion}</span>
+        </td>
+        <td>
           {oinky.ChampionIcon !== '' ?? <img height="30px" src={oinky.ChampionIcon ?? ''} />}
           <span>{oinky.SummonerName}</span>
         </td>
@@ -60,6 +65,7 @@ function TeamScoreBoard(team: Team, matchID: string) {
     <table>
       <tr className={styles.scoreBoardHeading}>
         <td>Lane</td>
+        <td>Champion</td>
         <td>Name</td>
         <td>K</td>
         <td>D</td>
@@ -100,100 +106,91 @@ function getRoleCSFactor(role: Role) {
   }
 }
 
-function OinkyTrainingBoard(oinkys: Participant[], matchDuration: number) {
-  const oinkyElements: React.ReactNode[] = [];
-
-  oinkys.forEach((oinky) => {
-    oinkyElements.push(
-      <tr className={styles.player} key={oinky.SummonerID}>
-        <td>
-          <span>{oinky.Role}</span>
-        </td>
-        <td>
-          {oinky.ChampionIcon !== '' ?? <img height="30px" src={oinky.ChampionIcon ?? ''} />}
-          <span>{oinky.SummonerName}</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{oinky.Kills}</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{oinky.Deaths}</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{oinky.Assists}</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{oinky.VisionScore}</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{Math.round(oinky.VisionScore / (matchDuration / 60) / getRoleVisionScoreFactor(oinky.Role) * 100 )}%</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{oinky.CS}</span>
-        </td>
-        <td className={styles.dt}>
-          <span>{Math.round(oinky.CS / 10 / (matchDuration / 60) / getRoleCSFactor(oinky.Role) * 100)}%</span>
-        </td>
-      </tr>
+function OinkyTrainingBoard(oinkys: Participant[], goals: Goal[], results: GoalResult[], matchDuration: number) {
+    const goalElement = (goal: Goal) => (
+        <div className={styles.goalContainer}>
+            <h3>{goal.displayName}</h3>
+            <table>
+            {
+                results
+                .filter((r) => r.goalID === goal.goalID)
+                .flatMap((r) => r.participants)
+                .filter((pr) => pr.isOinky)
+                .sort((a, b) => roleOrder[a.role] - roleOrder[b.role])
+                .map((pr) => (
+                    <tr>
+                        <td>
+                            {pr.summonerName}
+                        </td>
+                        <td className={styles.goalResult}>
+                            <progress id={goal.goalID} className={pr.goalResult >= 0.85 ? styles.success : pr.goalResult >= 0.5 ? styles.ok : ''} value={pr.goalResult}></progress>
+                        </td>
+                    </tr>
+                ))
+            }
+            </table>
+        </div>
     );
 
-    console.log(matchDuration);
-  });
-
-  return <table >
-    <tr className={styles.scoreBoardHeading}>
-      <td>Lane</td>
-      <td>Name</td>
-      <td>K</td>
-      <td>D</td>
-      <td>A</td>
-      <td>VS</td>
-      <td>Faktor</td>
-      <td>CS</td>
-      <td>Faktor</td>
-    </tr>
-    {oinkyElements}
-  </table>;
+    return (
+        <div className={styles.goals}>
+            {goals.map(goalElement)}
+        </div>
+    )
 }
 
 function MatchDetail() {
   let matchID = useParams().matchID;
 
-  const [match, setMatch] = useState<Match | null>(null);
+  const [match, setMatch] = useState<Match | undefined | null>(undefined);
+  const [goals, setGoals] = useState<Goal[] | undefined | null>(undefined);
+  const [results, setResults] = useState<GoalResult[] | undefined | null>(undefined);
 
-  useEffect(() => {
-    matches.getMatch(matchID ?? '').then((m) => setMatch(m));
-  }, []);
+    useEffect(() => {
+        matches.getMatch(matchID ?? '').then((m) => setMatch(m));
+        GoalService.getGoals().then((g) => setGoals([...g.customGoals, ...g.defaultGoals]));
+    }, []);
 
-  if (!match) {
+    useEffect(() => {
+        if(!matchID || !goals) {
+            return;
+        }
+
+        const p: Promise<GoalResult>[] = goals?.map((goal) => GoalService.getGoalResult(goal.goalID, matchID ?? ''));
+        Promise.all(p).then(setResults);
+    }, [goals]);
+
+    if (match === null) {
     return <h1>Match not found!</h1>
-  }
+    }
   
-	const d = new Date(match.Timestamp)
+    if (match === undefined) {
+        return <h1>Loading...</h1>
+    }
 
-  let win = didOinkysWin(match.Teams)
+    const d = new Date(match.Timestamp)
+
+    let win = didOinkysWin(match.Teams)
 
 	const team1: React.ReactNode = TeamScoreBoard(match.Teams[0], match.MatchID);
 	const team2: React.ReactNode = TeamScoreBoard(match.Teams[1], match.MatchID);
-  const ergebnis = OinkyTrainingBoard(getOinkys(match.Teams), match.Duration);
+    const ergebnis = OinkyTrainingBoard(getOinkys(match.Teams), goals ?? [], results ?? [], match.Duration);
 
 	return (
     <div className={styles.main}>
-      <div className={styles.container}>
-        <h1>{match.Mode}</h1>
-        <div className={styles.scoreBoard}>
-          {team1}
-          {team2}
+        <div className={styles.container}>
+            <h1>{match.Mode}</h1>
+            <div className={styles.scoreBoard}>
+            {team1}
+            {team2}
+            </div>
+            <div className={styles.matchInfo}>
+                <span>{`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
+                <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
+            </div>
         </div>
-        <div className={styles.matchInfo}>
-          <span>{`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`}</span>
-          <span>{Math.floor(match.Duration / 60) + ":" + (match.Duration - Math.floor(match.Duration / 60) * 60)}</span>
-        </div>
-      </div>
-      <div className={styles.container}>
         <h1>Trainingsergebnis</h1>
         {ergebnis}
-      </div>
     </div>
 	)
 }

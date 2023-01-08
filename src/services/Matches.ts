@@ -1,16 +1,7 @@
 import '../types/Match';
-import Role from '../types/Role';
+import Role, { roleOrder } from '../types/Role';
 import MatchMode from '../types/MatchMode';
 import Match from '../types/Match';
-
-const actionOrder = {
-  [Role.TOP]: 0,
-  [Role.JUNGLE]: 1,
-  [Role.MID]: 2,
-  [Role.BOT]: 3,
-  [Role.SUPP]: 4,
-  [Role.NONE]: 5,
-};
 
 class MatchService {
   public static async getMatches(): Promise<Match[]> {
@@ -47,8 +38,8 @@ class MatchService {
   
   public static cleanUpApiData(match: Match): Match {
     match.Timestamp *= 1000;
-    match.Teams[0].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
-    match.Teams[1].Participants.sort((a, b) => actionOrder[a.Role] - actionOrder[b.Role]);
+    match.Teams[0].Participants.sort((a, b) => roleOrder[a.Role] - roleOrder[b.Role]);
+    match.Teams[1].Participants.sort((a, b) => roleOrder[a.Role] - roleOrder[b.Role]);
     return match;
   }
 

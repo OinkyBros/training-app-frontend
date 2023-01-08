@@ -29,8 +29,6 @@ class GoalService {
     } else {
       throw new Error(`Could not find goal result for goalId ${goalId} and matchId ${matchId}.`);
     }
-
-    
   }
 
   public static async addGoal(displayName: string, topGoal: string, jungleGoal: string, midGoal: string, botGoal: string, suppGoal: string): Promise<void> {
@@ -39,6 +37,7 @@ class GoalService {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors',
+      headers: new Headers({'content-type': 'application/json'}),
       body: JSON.stringify({
         DisplayName: displayName,
         TopGoal: topGoal,
@@ -54,7 +53,22 @@ class GoalService {
     if (response.ok) {
       return Promise.resolve();
     } else {
-      throw new Error();
+      throw new Error(`error submitting goal, status <${response.status}> text <${response.statusText}>`);
+    }
+  }
+
+  public static async deleteGoal(goalId: string) {
+    const url: string = `https://api.oinky.vhoeher.de/api/v1/goals/${goalId}`;
+
+    const response = await fetch(url, {
+        method: 'DELETE',
+        mode: 'cors'
+    });
+
+    if(response.ok) {
+        return Promise.resolve();
+    } else {
+        throw new Error(`failed to delete goal, status <${response.status}> text <${response.statusText}>`)
     }
   }
 };
