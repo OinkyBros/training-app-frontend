@@ -3,6 +3,11 @@ import Role from "./Role";
 class Goal {
   goalID: string = '';
   displayName: string | null = '';
+  botGoal: string | null = '';
+  jungleGoal: string | null = '';
+  midGoal: string | null = '';
+  suppGoal: string | null = '';
+  topGoal: string | null = '';
 };
 
 export class GoalOverview {

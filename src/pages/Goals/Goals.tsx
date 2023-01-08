@@ -8,14 +8,20 @@ function Goals() {
     const [defaultGoals, setDefaultGoals] = useState<Goal[] | null>(null);
     const [customGoals, setCustomGoals] = useState<Goal[] | null>(null);
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [existingGoal, setExistingGoal] = useState<Goal | null>(null);
+
     const dialogRef: React.LegacyRef<HTMLDialogElement> = useRef(null);
 
-    useEffect(() => {
+    const refreshGoals = () => {
         GoalService.getGoals()
             .then((go: GoalOverview) => {
                 setDefaultGoals(go.defaultGoals);
                 setCustomGoals(go.customGoals);
-            })
+            });
+    };
+
+    useEffect(() => {
+        refreshGoals();
     }, []);
 
     useEffect(() => {
@@ -42,6 +48,18 @@ function Goals() {
         setDialogOpen(false);
     }
 
+    const deleteGoal = (goal: Goal) => GoalService.deleteGoal(goal.goalID).then(refreshGoals);
+
+    const editGoal = (goal: Goal) => {
+        setExistingGoal(goal);
+        setDialogOpen(true);
+    };
+
+    const addGoal = () => {
+        setExistingGoal(null);
+        setDialogOpen(true);
+    }
+
     const goalComponent = (goal: Goal) => {
         return (
             <tr>
@@ -49,10 +67,10 @@ function Goals() {
                     <span>{goal.displayName}</span>
                 </td>
                 <td>
-                    <button>🔨</button>
+                    <button onClick={() => editGoal(goal)}>🔨</button>
                 </td>
                 <td>
-                    <button onClick={() => GoalService.deleteGoal(goal.goalID)}>🚫</button>
+                    <button onClick={() => deleteGoal(goal)}>🚫</button>
                 </td>
             </tr>
         );
@@ -68,9 +86,9 @@ function Goals() {
             <table>
                 {customGoals.map(goalComponent)}
             </table>
-            <button onClick={() => setDialogOpen(true)}>Add Goal</button>
+            <button onClick={addGoal}>Add Goal</button>
             <dialog onClose={dialogClosed} onAbort={dialogClosed} ref={dialogRef}>
-                <AddGoal />
+                <AddGoal editGoalId={existingGoal?.goalID ?? null} onGoalAdded={refreshGoals}/>
             </dialog>
         </div>
     );
