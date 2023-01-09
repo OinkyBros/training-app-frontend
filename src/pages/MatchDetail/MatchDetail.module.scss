@@ -14,50 +14,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
-
-    .goalContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: var(--color-light);
-        color: var(--color-dark);
-        padding: 2rem;
-        border-radius: 15px;
-        gap: 0.5rem;
-    
-        .goalResult {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-    
-            progress {
-                --status-color: red;
-                margin: 0px;
-                border-width: 1px;
-                background-color: var(--color-main);
-                border-color: var(--color-dark);
-                
-                &.success {
-                  --status-color: green;
-                }
-                
-                &.ok {
-                  --status-color: yellow;
-                }
-                
-                color: var(--status-color);
-                
-                &::-moz-progress-bar  {
-                  background: var(--status-color);
-                }
-                
-                &::-webkit-progress-value {
-                  background: var(--status-color);
-                }
-            }
-        }
-    }
 }
   
 

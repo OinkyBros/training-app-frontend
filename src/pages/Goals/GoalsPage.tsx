@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AddGoal from '../../components/AddGoal/AddGoal';
+import Button from '../../components/Button/Button';
 import GoalService from '../../services/GoalsService';
 import Goal, { GoalOverview } from '../../types/Goal';
 import styles from './Goals.module.scss';
@@ -68,10 +69,10 @@ function Goals() {
                     <span>{goal.displayName}</span>
                 </td>
                 <td>
-                    <button onClick={() => editGoal(goal)}>🔨</button>
+                    <Button onClick={() => editGoal(goal)}>🔨</Button>
                 </td>
                 <td>
-                    <button onClick={() => deleteGoal(goal)}>🚫</button>
+                    <Button onClick={() => deleteGoal(goal)}>🚫</Button>
                 </td>
             </tr>
         );
@@ -91,7 +92,7 @@ function Goals() {
                     {customGoals.map(goalComponent)}
                 </tbody>
             </table>
-            <button onClick={addGoal}>Add Goal</button>
+            <Button onClick={addGoal}>Add Goal</Button>
             <dialog onClose={dialogClosed} onAbort={dialogClosed} ref={dialogRef}>
                 <AddGoal onCancel={dialogClosed} editGoalId={existingGoal?.goalID ?? null} onGoalAdded={refreshGoals}/>
             </dialog>

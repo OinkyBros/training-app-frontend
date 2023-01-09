@@ -7,6 +7,7 @@ import Match from '../../types/Match';
 import Participant from '../../types/Participant';
 import Role, { roleOrder } from '../../types/Role';
 import Team from '../../types/Team';
+import GoalElement from './GoalElement';
 import styles from './MatchDetail.module.scss';
 
 function didOinkysWin(teams: Team[]) {
@@ -81,36 +82,9 @@ function TeamScoreBoard(team: Team, matchID: string) {
 }
 
 function OinkyTrainingBoard(oinkys: Participant[], goals: Goal[], results: GoalResult[], matchDuration: number) {
-    const goalElement = (goal: Goal) => (
-        <div className={styles.goalContainer} key={goal.goalID}>
-            <h3>{goal.displayName}</h3>
-            <table>
-                <tbody>
-                {
-                    results
-                    .filter((r) => r.goalID === goal.goalID)
-                    .flatMap((r) => r.participants)
-                    .filter((pr) => pr.isOinky)
-                    .sort((a, b) => roleOrder[a.role] - roleOrder[b.role])
-                    .map((pr) => (
-                        <tr key={goal.goalID + pr.summonerName}>
-                            <td>
-                                {pr.summonerName}
-                            </td>
-                            <td className={styles.goalResult}>
-                                <progress id={goal.goalID} className={pr.goalResult >= 0.85 ? styles.success : pr.goalResult >= 0.5 ? styles.ok : ''} value={pr.goalResult}></progress>
-                            </td>
-                        </tr>
-                    ))
-                }
-                </tbody>
-            </table>
-        </div>
-    );
-
     return (
         <div className={styles.goals}>
-            {goals.map(goalElement)}
+            {goals.map((goal: Goal) => <GoalElement goal={goal} results={results ?? []} />)}
         </div>
     )
 }
