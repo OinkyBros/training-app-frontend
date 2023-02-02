@@ -124,7 +124,7 @@ function MatchDetail() {
 
 	const team1: React.ReactNode = TeamScoreBoard(match.Teams[0], match.MatchID);
 	const team2: React.ReactNode = TeamScoreBoard(match.Teams[1], match.MatchID);
-    const ergebnis = OinkyTrainingBoard(getOinkys(match.Teams), goals ?? [], results ?? [], match.Duration);
+  const ergebnis = OinkyTrainingBoard(getOinkys(match.Teams), goals ?? [], results ?? [], match.Duration);
 
 	return (
     <div className={styles.main}>
