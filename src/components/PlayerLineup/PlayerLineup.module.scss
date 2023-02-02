@@ -5,11 +5,33 @@
     flex-direction: column;
     justify-content: center ;
     align-items: center;
-    border: 1px solid var(--color-light);
-    background-color: var(--color-dark);
+    background-color: var(--color-main);
     cursor: pointer;
     text-decoration: none;
-    color: var(--color-light);
+    color: var(--color-dark);
+    border-radius: 20px;
+
+    h2 {
+      margin-top: 2rem;
+    }
+
+    h3, h5 {
+      margin-top: 0.5rem;
+    }
+
+    h5 {
+      padding: 0.3rem 0.5rem;
+      border-radius: 5px;
+      color: white;
+
+      &.lost {
+        background-color: var(--color-loss);
+      }
+
+      &.win {
+        background-color: var(--color-win);
+      }
+    }
 }
 
 .playerContainer {
@@ -19,40 +41,14 @@
     justify-content: center;
 }
 
-progress {
-    --status-color: red;
-    margin-bottom: 0.3rem;
-    border-width: 1px;
-    background-color: var(--color-main);
-    border-color: var(--color-light);
-    
-    &.success {
-      --status-color: green;
-    }
-    
-    &.ok {
-      --status-color: yellow;
-    }
-    
-    color: var(--status-color);
-    
-    &::-moz-progress-bar  {
-      background: var(--status-color);
-    }
-    
-    &::-webkit-progress-value {
-      background: var(--status-color);
-    }
-}
-
 .player {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     padding: 1rem;
-
-    background-color: var(--color-main);
+    border: 1px solid var(--color-light);
+    border-radius: 20px;
 }
 
 .detailLink {

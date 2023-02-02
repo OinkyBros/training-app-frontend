@@ -55,10 +55,14 @@ function PlayerLineup({ match }: PlayerLineupProps) {
     let minutes = (hours % 1) * 60;
     let secs = (minutes % 1) * 60;
     [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)];
+
+    const oinkysWon = match.Teams.filter((t) => t.Participants.some((p) => p.IsOinky))[0].Win;
+
     return (
         <Link className={styles.matchContainer} to={`/matches/${match?.MatchID}`}>
             <h2>{match?.Mode}</h2>
             <h3>{days > 0 ? `${days} days, ` : ''}{hours > 0 ? `${hours} hours, ` : ''} {minutes > 0 ? `${minutes} minutes ` : ''} ago</h3>
+            <h5 className={oinkysWon ? styles.win : styles.lost} >{oinkysWon ? 'WIN' : 'LOSS'}</h5>
             <div className={styles.playerContainer}>
                 {players.map((p) => playerComponent(p))}
             </div>
