@@ -42,7 +42,8 @@ function PlayerLineup({ match }: PlayerLineupProps) {
         const iconUrl = playerIcons.get(icon);
         return (
         <GridItem xs={12} sm={6} md={4} lg={3} xl={2} className={styles.player} key={player.SummonerID}>
-            <h1>{iconUrl ? <img src={iconUrl} style={{width: "1em", height: "1em"}}/> : null}{player.SummonerName}</h1>
+            {iconUrl ? <img src={iconUrl} style={{width: "3rem", height: "3rem"}}/> : null}
+            <h1>{player.SummonerName}</h1>
             <span>{player.Champion}</span>
             <span>{player.Role}</span>
         </GridItem>
