@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../../components/Button/Button';
 import Goal, { GoalResult } from '../../types/Goal';
 import { roleOrder } from '../../types/Role';
 import styles from './GoalElement.module.scss';
@@ -11,10 +12,38 @@ interface GoalElementProps {
 function GoalElement({ goal, results }: GoalElementProps) {
     const [progressBar, setProgressBar] = useState<boolean>(true);
 
+    const postToDiscord = () => {
+        const content = results
+        .filter((r) => r.goalID === goal.goalID)
+        .flatMap((r) => r.participants)
+        .filter((pr) => pr.isOinky)
+        .sort((a, b) => roleOrder[a.role] - roleOrder[b.role])
+        .map((pr) => {
+            if(pr.goalResult >= 0.5) {
+                return '';
+            }
+
+            return pr.summonerName + ' failed goal ' + goal.displayName + '!';
+        })
+        .join('\n');
+
+        if(!content) {
+            return;
+        }
+    
+        fetch('https://discord.com/api/webhooks/1084470162893312071/g_iVhgbqLhbzELAcy572xPISN83lQOjZxpcsP2ARgY83WOqmDGAlqFrnIf9HxF9rwxs9', {
+            method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
+            body: JSON.stringify({
+                content,
+            }),
+        })
+    };
+
     return (
-        <div className={styles.goalContainer} key={goal.goalID} onClick={() => setProgressBar((p) => !p)}>
+        <div className={styles.goalContainer} key={goal.goalID}>
             <h3>{goal.displayName}</h3>
-            <table>
+            <table onClick={() => setProgressBar((p) => !p)}>
                 <tbody>
                 {
                     results
@@ -39,6 +68,7 @@ function GoalElement({ goal, results }: GoalElementProps) {
                 }
                 </tbody>
             </table>
+            <Button onClick={postToDiscord}>Post to Discord</Button>
         </div>
     );
 };
