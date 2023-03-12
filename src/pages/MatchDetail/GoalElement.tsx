@@ -31,7 +31,7 @@ function GoalElement({ goal, results }: GoalElementProps) {
             return;
         }
     
-        fetch('test', {
+        fetch(import.meta.env.VITE_WEBHOOK_URL, {
             method: 'POST',
             headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify({
