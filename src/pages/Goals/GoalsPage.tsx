@@ -50,7 +50,12 @@ function Goals() {
         setDialogOpen(false);
     }
 
-    const deleteGoal = (goal: Goal) => GoalService.deleteGoal(goal.goalID).then(refreshGoals);
+    const deleteGoal = (goal: Goal) => {
+        if(confirm('You are about to delete the goal ' + goal.displayName
+            + ', are you sure you want to do this?')) {
+            GoalService.deleteGoal(goal.goalID).then(refreshGoals);
+        }
+    }
 
     const editGoal = (goal: Goal) => {
         setExistingGoal(goal);
