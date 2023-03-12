@@ -31,7 +31,7 @@ function GoalElement({ goal, results }: GoalElementProps) {
             return;
         }
     
-        fetch('https://discord.com/api/webhooks/1084470162893312071/g_iVhgbqLhbzELAcy572xPISN83lQOjZxpcsP2ARgY83WOqmDGAlqFrnIf9HxF9rwxs9', {
+        fetch('test', {
             method: 'POST',
             headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify({
