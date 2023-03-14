@@ -1,0 +1,13 @@
+name: Deploy Frontend to AWS S3
+run-name: ${{ github.actor }} is deploying to AWS S3 bucket 💪
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+ upload-to-bucket:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@master
