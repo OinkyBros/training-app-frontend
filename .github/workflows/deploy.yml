@@ -9,5 +9,7 @@ jobs:
  upload-to-bucket:
   runs-on: ubuntu-latest
   steps:
-    - name: Checkout code
-      uses: actions/checkout@master
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+    - run: npm install
+    - run: npm run build
