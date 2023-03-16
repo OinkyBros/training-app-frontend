@@ -37,6 +37,7 @@ jobs:
   create-github-release:
     name: Create github release
     runs-on: ubuntu-latest
+    needs: update-aws-deployment
     steps:
       - name: Get current date for release
         id: date
