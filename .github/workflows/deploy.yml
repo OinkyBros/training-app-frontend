@@ -57,5 +57,11 @@ jobs:
     env:
       COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Set up nodejs
+        uses: actions/setup-node@master
+      - name: Install dependencies
+        run: npm install
       - name: Send discord notification
         run: npm run discord-notify
