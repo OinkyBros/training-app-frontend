@@ -51,8 +51,7 @@ jobs:
   runs-on: ubuntu-latest
   needs: create-release
   steps:
-    - name: Set up AWS CLI
-      uses: ItsKarma/aws-cli@v1.70.0
     - name: Invalidate cache
+      uses: ItsKarma/aws-cli@v1.70.0
       with:
         args: cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
