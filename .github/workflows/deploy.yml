@@ -29,13 +29,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         SOURCE_DIR: './dist'
-  
- create-release:
-  name: Create release
-  runs-on: ubuntu-latest
-  needs: upload-to-bucket
-  steps:
-    - name: Get current date
+    - name: Get current date for release
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Create github release
@@ -45,16 +39,9 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: false
         title: ${{ steps.date.outputs.date }}
-        
- invalidate-cache:
-  name: Invalidate cloudfront cache
-  runs-on: ubuntu-latest
-  needs: create-release
-  steps:
     - name: Invalidate cache
       run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
       env:
         AWS_S3_BUCKET: 'app.ploinky.de'
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  
