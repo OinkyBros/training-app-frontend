@@ -7,42 +7,44 @@ on:
       - main
       
 jobs:
- upload-to-bucket:
-  name: Upload to S3 bucket
-  runs-on: ubuntu-latest
-  environment:
-    name: production
-    url: https://app.ploinky.de
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@master
-    - name: Set up nodejs
-      uses: actions/setup-node@master
-    - name: Install dependencies
-      run: npm install
-    - name: Build static assets
-      run: npm run build
-    - name: Upload assets to S3
-      uses: jakejarvis/s3-sync-action@master
-      env:
-        AWS_S3_BUCKET: 'app.ploinky.de'
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        SOURCE_DIR: './dist'
-    - name: Get current date for release
-      id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-    - name: Create github release
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: false
-        title: ${{ steps.date.outputs.date }}
-    - name: Invalidate cache
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
-      env:
-        AWS_S3_BUCKET: 'app.ploinky.de'
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: eu-central-1
+  update-aws-deployment:
+    name: Upload to S3 bucket and invalidate cache
+    runs-on: ubuntu-latest
+    env:
+      AWS_S3_BUCKET: 'app.ploinky.de'
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-central-1
+    environment:
+      name: production
+      url: https://app.ploinky.de
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Set up nodejs
+        uses: actions/setup-node@master
+      - name: Install dependencies
+        run: npm install
+      - name: Build static assets
+        run: npm run build
+      - name: Upload assets to S3
+        uses: jakejarvis/s3-sync-action@master
+        env:
+          SOURCE_DIR: './dist'
+      - name: Invalidate cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+  
+  create-github-release:
+    name: Create github release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date for release
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Create github release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: ${{ steps.date.outputs.date }}
