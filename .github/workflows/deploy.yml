@@ -56,4 +56,4 @@ jobs:
     needs: create-github-release
     steps:
       - name: Send discord notification
-        run: curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" --data '{"content": "data"}' ${{ secrets.DISCORD_RELEASE_BOT_HOOK }} 
+        run: curl -X POST -H "Accept=application/json" -H "Content-Type=application/json" --data '{"content"="data"}' ${{ secrets.DISCORD_RELEASE_BOT_HOOK }} 
